@@ -6,16 +6,27 @@ class dijkstra {
     protected $relations;
 
     /*
+     * @arg^: (array) relations array
+     * @desc: Method set relations if sent data is array, otherwise do nothing.
+     */
+    public function __construct($relations_array=NULL){
+        if(!empty($relations_array)&&is_array($relations_array)){
+            $this->setRelations($relations_array);
+        } # if()
+    } # __construct()
+
+    /*
      * @arg: (array) relations array
      * @desc: Method put relations to $relations protected variable.
      */
     public function setRelations($relations_array){
-        if(is_array($relations)){
+        if(is_array($relations_array)){
             $this->relations=$relations_array;
         } # if()
     } # setRelations()
 
     /*
+     * @ret: (array) array contains the shortest ways
      * @desc: Method analyze all relations from $relations variable.
      */
     public function generate(){
@@ -41,7 +52,7 @@ class dijkstra {
     /*
      * @arg: (int) source point
      * @arg: (int) already analised point
-     * @arg^: (array) already visited points
+     * @arg&^: (array) already visited points
      * @desc: Method analyzes current point, point neighborhood and go by minimum way to unvisited point.
      */
     public function d($source,$point,&$visited=[]){
