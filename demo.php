@@ -29,6 +29,6 @@
         ],  # 5
     ]; # $relations
 
-    $dijkstra = new algorithms/dijkstra($relations);
-    var_dump($dijkstra->d(1, 1)); // all distances from point 1 to other points
+    $dijkstra = new algorithms\dijkstra($relations);
+    var_dump($dijkstra->distances(1, 1)); // all distances from point 1 to other points
     var_dump($dijkstra->generate()); // all distances from all points to all points

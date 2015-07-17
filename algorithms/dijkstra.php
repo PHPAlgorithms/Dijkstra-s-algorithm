@@ -55,7 +55,7 @@ class dijkstra {
      * @arg&^: (array) already visited points
      * @desc: Method analyzes current point, point neighborhood and go by minimum way to unvisited point.
      */
-    public function d($source,$point,&$visited=[]){
+    private function d($source,$point,&$visited=[]){
         $visited[$point]=TRUE; # Set current point as visited
 
         # Prepare help variables
@@ -81,14 +81,14 @@ class dijkstra {
                     # Change the shortest way to current point
                         if(empty($this->points[$relation[0]])){
                             $this->points[$relation[0]]=[
-                                $this->points[$point][0]+$relation[1],
+                                ((isset($this->points[$point][0]))?$this->points[$point][0]:0)+$relation[1],
                                 ((empty($this->points[$point][1]))?$point:$this->points[$point][1]).':'.$relation[0],
                             ]; # $this->points[]
                         } # if()
                         else{
                             if($this->points[$relation[0]][0]>$this->points[$point][0]+$relation[1]){
                                 $this->points[$relation[0]]=[
-                                    $this->points[$point][0]+$relation[1],
+                                    ((isset($this->points[$point][0]))?$this->points[$point][0]:0)+$relation[1],
                                     ((empty($this->points[$point][1]))?NULL:$this->points[$point][1].':').$relation[0],
                                 ]; # $this->points[]
                             } # if()
@@ -101,4 +101,14 @@ class dijkstra {
                 $this->d($source,$min_ptr,$visited);
             } # if()
     } # d()
+
+    /*
+     * @arg: (int) point to analyze
+     * @ret: (array) the shortest ways from sent point to others
+     * @desc: Method analyze ways from one sent point to all other points.
+     */
+    public function distances($point){
+        $this->d($point,$point);
+        return $this->points;
+    } # distances()
 } # dijkstra
