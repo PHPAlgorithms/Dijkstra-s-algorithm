@@ -20,7 +20,7 @@ class dijkstra {
      * @desc: Method put relations to $relations protected variable.
      */
     public function setRelations($relations_array){
-        if(is_array($relations_array)){
+        if(is_array($relations)){
             $this->relations=$relations_array;
         } # if()
     } # setRelations()
