@@ -20,7 +20,7 @@ class dijkstra {
      * @desc: Method put relations to $relations protected variable.
      */
     public function setRelations($relations_array){
-        if(is_array($relations_array)){
+		if(self::validate($relations_array)){
             $this->relations=$relations_array;
         } # if()
     } # setRelations()
@@ -111,4 +111,38 @@ class dijkstra {
         $this->d($point,$point);
         return $this->points;
     } # distances()
+
+	/*
+	 * @arg: (array) relations array
+	 * @ret: (bool) true or false
+	 * @desc: Method check relations array, if it's correct return true, false otherwise.
+	 */
+	private static function validate($relations_array){
+		if(is_array($relations_array)){
+			$return=TRUE;
+			foreach($relations_array as $relations){
+				if(is_array($relations)){
+					foreach($relations as $relation){
+						if(!(is_array($relation)&&(count($relation)==2)&&isset($relation[0])&&isset($relation[1]))){
+							$return=FALSE;
+							break;
+						} # if()
+					} # foreach()
+
+					if($return==FALSE){
+						break;
+					} # if()
+				} # if()
+				else{
+					$return=FALSE;
+					break;
+				} # else
+			} # foreach()
+
+			return $return;
+		} # if()
+		else{
+			return FALSE;
+		} # else
+	} # relations_array()
 } # dijkstra
