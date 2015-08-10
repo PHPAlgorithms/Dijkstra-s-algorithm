@@ -1,6 +1,7 @@
 # Dijkstra's algorithm
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/ventaquil/Dijkstra-s-algorithm/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/ventaquil/Dijkstra-s-algorithm/?branch=master) [![Build Status](https://scrutinizer-ci.com/g/ventaquil/Dijkstra-s-algorithm/badges/build.png?b=master)](https://scrutinizer-ci.com/g/ventaquil/Dijkstra-s-algorithm/build-status/master)
 
-How to use (from demo file):
+#### How to use *(from demo file)*
 
 ```php
     <?php
