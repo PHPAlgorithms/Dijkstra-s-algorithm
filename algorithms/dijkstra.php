@@ -129,7 +129,7 @@ class dijkstra {
 						} # if()
 					} # foreach()
 
-					if($return==FALSE){
+					if($return===FALSE){
 						break;
 					} # if()
 				} # if()
