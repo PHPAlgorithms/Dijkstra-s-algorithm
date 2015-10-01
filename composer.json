@@ -10,5 +10,10 @@
       "email": "ventaquil@outlook.com"
     }
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "autoload": {
+    "psr-0": {
+      "Algorithms\\Dijkstra\\": "src/"
+		},
+  },
 }
