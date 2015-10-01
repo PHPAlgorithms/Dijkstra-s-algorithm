@@ -5,7 +5,7 @@
 
 ```php
     <?php
-    require_once('./algorithms/dijkstra.php');
+    require_once('./Algorithms/Dijkstra.php');
 
     // Simple relations
     $relations = [
@@ -35,7 +35,11 @@
         ],  # 5
     ]; # $relations
 
-    $dijkstra = new algorithms\dijkstra($relations);
+    $dijkstra = new Algorithms\Dijkstra($relations);
     var_dump($dijkstra->distances(1)); // all distances from point 1 to other points
     var_dump($dijkstra->generate()); // all distances from all points to all points
 ```
+
+### Install from Composer
+
+Execute `composer require algorithms/dijkstra`. After use by `Algorithms/Dijkstra` class.
