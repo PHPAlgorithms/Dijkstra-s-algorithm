@@ -1,5 +1,5 @@
 {
-  "name": "ventaquil/algorithms/Dijkstra",
+  "name": "algorithms/dijkstra",
   "description": "Implementation of Dijkstra's algorithm.",
   "type": "library",
   "homepage": "https://github.com/ventaquil/Dijkstra-s-algorithm",
