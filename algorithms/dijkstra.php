@@ -151,5 +151,5 @@ class dijkstra {
 		else{
 			return FALSE;
 		} # else
-	} # relations_array()
+	} # validate()
 } # dijkstra
