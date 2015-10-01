@@ -1,5 +1,5 @@
 <?php
-namespace algorithms;
+namespace ventaquil\algorithms;
 
 class dijkstra {
   protected $points;
