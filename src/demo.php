@@ -1,5 +1,5 @@
 <?php
-require_once('./algorithms/dijkstra.php');
+require_once('./dijkstra.php');
 
 // Simple relations
 $relations = [
