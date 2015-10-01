@@ -1,5 +1,5 @@
 # Dijkstra's algorithm
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/ventaquil/Dijkstra-s-algorithm/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/ventaquil/Dijkstra-s-algorithm/?branch=master) [![Build Status](https://scrutinizer-ci.com/g/ventaquil/Dijkstra-s-algorithm/badges/build.png?b=master)](https://scrutinizer-ci.com/g/ventaquil/Dijkstra-s-algorithm/build-status/master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/ventaquil/Dijkstra-s-algorithm/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/ventaquil/Dijkstra-s-algorithm/?branch=master) [![Build Status](https://travis-ci.org/ventaquil/Dijkstra-s-algorithm.svg?branch=master)](https://travis-ci.org/ventaquil/Dijkstra-s-algorithm)
 
 #### How to use *(from demo file)*
 
