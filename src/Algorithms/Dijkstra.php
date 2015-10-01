@@ -1,7 +1,7 @@
 <?php
-namespace algorithms;
+namespace Algorithms;
 
-class dijkstra {
+class Dijkstra {
   protected $points;
   protected $relations;
 
@@ -152,4 +152,4 @@ class dijkstra {
 			return FALSE;
 		} # else
 	} # validate()
-} # dijkstra
+} # Dijkstra

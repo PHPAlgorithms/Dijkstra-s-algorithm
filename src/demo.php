@@ -1,5 +1,5 @@
 <?php
-require_once('./Algorithms/Dijkstra/dijkstra.php');
+require_once('./Algorithms/Dijkstra.php');
 
 // Simple relations
 $relations = [
@@ -29,7 +29,7 @@ $relations = [
   ],  # 5
 ]; # $relations
 
-$dijkstra = new algorithms\dijkstra($relations);
+$dijkstra = new Algorithms\Dijkstra($relations);
 var_dump($dijkstra->distances(1)); // all distances from point 1 to other points
 var_dump($dijkstra->generate()); // all distances from all points to all points
 
@@ -51,6 +51,6 @@ $relations = [
   ],
 ];
 
-$dijkstra = new algorithms\dijkstra($relations);
+$dijkstra = new Algorithms\Dijkstra($relations);
 var_dump($dijkstra->distances(1)); // all distances from point 1 to other points
 var_dump($dijkstra->generate()); // all distances from all points to all points
