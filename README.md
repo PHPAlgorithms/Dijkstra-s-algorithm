@@ -5,7 +5,7 @@
 
 ```php
     <?php
-    require_once('./Algorithms/Dijkstra.php');
+    require_once('./src/Algorithms/Dijkstra.php');
 
     // Simple relations
     $relations = [
@@ -42,4 +42,8 @@
 
 ### Install from Composer
 
-Execute `composer require algorithms/dijkstra`. After use by `Algorithms/Dijkstra` class.
+Execute
+
+    composer require algorithms/dijkstra`
+
+After use by `Algorithms/Dijkstra` class.
