@@ -44,6 +44,6 @@
 
 Execute
 
-    composer require algorithms/dijkstra`
+    composer require algorithms/dijkstra
 
 After use by `Algorithms/Dijkstra` class.
