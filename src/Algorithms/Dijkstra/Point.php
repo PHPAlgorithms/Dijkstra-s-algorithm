@@ -9,8 +9,6 @@ class Point {
     $point_id=$this::validate($point_id);
 
     $this->id=$point_id;
-
-    return $this;
   } # __construct()
 
   public static function create($point_id){
