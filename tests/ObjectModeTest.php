@@ -1,11 +1,8 @@
 <?php
-class ObjectModeTest extends PHPUnit_Framework_TestCase {
-  public function testMode(){
-    // Require classes
-    require_once('./src/Algorithms/Dijkstra.php');
-    require_once('./src/Algorithms/Dijkstra/Creator.php');
-    require_once('./src/Algorithms/Dijkstra/Point.php');
+namespace Algorithms\Tests;
 
+class ObjectModeTest extends \PHPUnit_Framework_TestCase {
+  public function testMode(){
     // Simple relations
     $relations = [
       1 => [ // point 1 relations

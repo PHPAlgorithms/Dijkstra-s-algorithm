@@ -1,7 +1,5 @@
 <?php
-require_once('./src/Algorithms/Dijkstra.php');
-require_once('./src/Algorithms/Dijkstra/Creator.php');
-require_once('./src/Algorithms/Dijkstra/Point.php');
+require_once(__DIR__.'/vendor/autoload.php');
 
 // Simple relations
 $relations = [

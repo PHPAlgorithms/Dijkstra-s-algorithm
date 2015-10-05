@@ -3,7 +3,7 @@
   "description": "Implementation of Dijkstra's algorithm.",
   "type": "library",
   "homepage": "https://github.com/ventaquil/Dijkstra-s-algorithm",
-  "keywords": ["algorithm", "dijkstra"],
+  "keywords": ["algorithm", "dijkstra", "algorithms"],
   "authors": [
     {
       "name": "ventaquil",
@@ -13,7 +13,11 @@
   "license": "MIT",
   "autoload": {
     "psr-0": {
-      "Algorithms": "src/"
-		}
+      "Algorithms": "src/",
+      "Algorithms\\Tests": "tests/"
+    }
+  },
+  "require": {
+    "php": ">=5.4.0"
   }
 }
