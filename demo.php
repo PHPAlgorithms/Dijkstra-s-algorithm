@@ -1,5 +1,7 @@
 <?php
-require_once('./Algorithms/Dijkstra.php');
+require_once('./src/Algorithms/Dijkstra.php');
+require_once('./src/Algorithms/Dijkstra/Creator.php');
+require_once('./src/Algorithms/Dijkstra/Point.php');
 
 // Simple relations
 $relations = [
@@ -30,9 +32,8 @@ $relations = [
 ]; # $relations
 
 $dijkstra = new Algorithms\Dijkstra($relations);
-var_dump($dijkstra->distances(1)); // all distances from point 1 to other points
-var_dump($dijkstra->generate()); // all distances from all points to all points
-
+print_r($dijkstra->distances(1)); // all distances from point 1 to other points
+print_r($dijkstra->generate()); // all distances from all points to all points
 $relations = [
   1 => [ // point 1 relations
     [2, 1], // to point 2 - distance 1
@@ -54,3 +55,33 @@ $relations = [
 $dijkstra = new Algorithms\Dijkstra($relations);
 var_dump($dijkstra->distances(1)); // all distances from point 1 to other points
 var_dump($dijkstra->generate()); // all distances from all points to all points
+
+// Or set this relations in another way
+$dijkstra=new Algorithms\Dijkstra(function(Algorithms\Dijkstra\Creator $creator){
+  $creator->addPoint(1)
+          ->addRelation(2, 1);
+  
+  $creator->addPoint(2)
+          ->addRelation(3, 1);
+
+  $creator->addPoint(3)
+          ->addRelation(1, 1);
+
+  $creator->addPoint(4)
+          ->addRelation(5, 1);
+
+  $creator->addPoint(5)
+          ->addRelation(4, 1);
+}); # Algorithms\Dijkstra
+var_dump($dijkstra->distances(1));
+var_dump($dijkstra->generate());
+
+// You can also add points like that
+new Algorithms\Dijkstra(function(Algorithms\Dijkstra\Creator $creator){
+  $point = $creator->addPoint(1)
+                   ->addRelation(2, 5);
+
+  $creator->addPoint(3)
+          ->addRelation($point, 8)
+          ->addRelation(2, 3);
+}); # Algorithms\Dijkstra

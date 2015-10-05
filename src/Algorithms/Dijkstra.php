@@ -9,9 +9,9 @@ class Dijkstra {
    * @arg^: (array) relations array
    * @desc: Method set relations if sent data is array, otherwise do nothing.
    */
-  public function __construct($relations_array=NULL){
-    if(!empty($relations_array)&&is_array($relations_array)){
-      $this->setRelations($relations_array);
+  public function __construct($relations=NULL){
+    if(!empty($relations)){
+      $this->setRelations($relations);
     } # if()
   } # __construct()
 
@@ -19,10 +19,18 @@ class Dijkstra {
    * @arg: (array) relations array
    * @desc: Method put relations to $relations protected variable.
    */
-  public function setRelations($relations_array){
-    if(self::validate($relations_array)){
-      $this->relations=$relations_array;
+  public function setRelations($relations){
+    if(self::validate($relations)){
+      $this->relations=$relations;
     } # if()
+    else{
+      if(is_callable($relations)&&$relations instanceof \Closure){
+        $creator=new Dijkstra\Creator;
+        call_user_func($relations,$creator);
+
+        $this->relations=$creator->createConnections();
+      } # if()
+    } # else
   } # setRelations()
 
   /*
