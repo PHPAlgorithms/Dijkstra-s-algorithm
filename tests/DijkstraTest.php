@@ -1,7 +1,7 @@
 <?php
 class DijkstraTest extends PHPUnit_Framework_TestCase {
   public function testSingleDistance(){
-    require_once('../src/Algorithms/Dijkstra.php'); # Require class
+    require_once('./src/Algorithms/Dijkstra.php'); # Require class
 
     $dijkstra=new \Algorithms\Dijkstra; # Create new object
     $this->assertNotEmpty($dijkstra);
