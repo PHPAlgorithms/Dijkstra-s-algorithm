@@ -17,8 +17,8 @@ class Point {
     return new self($point_id);
   } # create()
 
-  public function checkPoint($point){
-    if($point instanceof Point){
+  public static function checkPoint($point){
+    if($point instanceof self){
       return TRUE;
     } # if()
     else{
