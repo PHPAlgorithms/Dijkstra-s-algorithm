@@ -3,4 +3,4 @@ languages:
 
 ratings:
   paths:
-    - src/**
+    - "src/*"
