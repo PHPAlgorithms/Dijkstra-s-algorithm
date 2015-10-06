@@ -7,7 +7,7 @@ class Point {
 
   public function __construct($point_id){
     if(is_int($point_id)){
-      $this->id=$point_id;
+      $this->id = $point_id;
     } # if()
     else{
       throw new PointException('Wrong data sent');
@@ -39,7 +39,7 @@ class Point {
     } # else
   } # validate()
 
-  public function addRelation($point,$distance){
+  public function addRelation($point, $distance){
     $point=$this::validate($point);
 
     $this->distances[$point]=$distance;
@@ -50,8 +50,8 @@ class Point {
   public function getDinstances(){
     $distances=array();
 
-    foreach($this->distances as $point_id=>$distance){
-      $distances[]=[$point_id,$distance];
+    foreach($this->distances as $point_id => $distance){
+      $distances[] = [$point_id, $distance];
     } # foreach()
 
     return $distances;

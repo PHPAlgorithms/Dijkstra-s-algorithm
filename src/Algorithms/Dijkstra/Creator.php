@@ -6,15 +6,15 @@ class Creator {
 
   public function addPoint($point){
     if(Point::checkPoint($point)){
-      $this->points[$point->getID()]=$point;
+      $this->points[$point->getID()] = $point;
 
       return $point;
     } # if()
     else{
       if(!isset($this->points[$point])){
-        $new_point=Point::create($point);
+        $new_point = Point::create($point);
 
-        $this->points[$point]=$new_point;
+        $this->points[$point] = $new_point;
 
         return $new_point;
       } # if()
@@ -45,12 +45,12 @@ class Creator {
   public function createConnections(){
     $relations=array();
 
-    foreach($this->points as $point_id=>$point){
-      $relations[$point_id]=$point->getDinstances();
+    foreach($this->points as $point_id => $point){
+      $relations[$point_id] = $point->getDinstances();
 
       foreach($relations[$point_id] as $array_to_analyze){
         if(!isset($relations[$array_to_analyze[0]])){
-          $relations[$array_to_analyze[0]]=array();
+          $relations[$array_to_analyze[0]] = array();
         } # if()
       } # foreach()
     } # foreach()
