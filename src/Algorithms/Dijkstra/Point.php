@@ -6,9 +6,12 @@ class Point {
   private $distances=array();
 
   public function __construct($point_id){
-    $point_id=$this::validate($point_id);
-
-    $this->id=$point_id;
+    if(is_int($point_id)){
+      $this->id=$point_id;
+    } # if()
+    else{
+      throw new PointException('Wrong data sent');
+    } # else
   } # __construct()
 
   public static function create($point_id){
