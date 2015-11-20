@@ -6,58 +6,58 @@
 #### Array method
 
 ```php
-  $relations = [
-    1 => [ // point 1 relations
-      [2, 1],  // to point 2 - distance 1
-      [4, 2],  // to point 4 - distance 2
-    ],  # 1
-    2 => [ // point 2 relations
-      [1, 1],  // to point 1 - distance 1
-      [3, 3],  // to point 3 - distance 3
-      [4, 3],  // to point 4 - distance 3
-    ],  # 2
-    3 => [ // point 3 relations
-      [2, 3],  // to point 2 - distance 3
-      [4, 1],  // to point 4 - distance 1
-      [5, 5],  // to point 5 - distance 5
-    ],  # 3
-    4 => [ // point 4 relations
-      [1, 2],  // to point 1 - distance 2
-      [2, 3],  // to point 2 - distance 3
-      [3, 1],  // to point 3 - distance 1
-      [5, 1],  // to point 5 - distance 1
-    ],  # 4
-    5 => [ // point 5 relations
-      [3, 5],  // to point 3 - distance 5
-      [4, 1],  // to point 4 - distance 1
-    ],  # 5
-  ]; # $relations
-  $dijkstra = new Algorithms\Dijkstra($relations);
+    $relations = [
+        1 => [ // point 1 relations
+            [2, 1], // to point 2 - distance 1
+            [4, 2], // to point 4 - distance 2
+        ],
+        2 => [ // point 2 relations
+            [1, 1], // to point 1 - distance 1
+            [3, 3], // to point 3 - distance 3
+            [4, 3], // to point 4 - distance 3
+        ],
+        3 => [ // point 3 relations
+            [2, 3], // to point 2 - distance 3
+            [4, 1], // to point 4 - distance 1
+            [5, 5], // to point 5 - distance 5
+        ],
+        4 => [ // point 4 relations
+            [1, 2], // to point 1 - distance 2
+            [2, 3], // to point 2 - distance 3
+            [3, 1], // to point 3 - distance 1
+            [5, 1], // to point 5 - distance 1
+        ],
+        5 => [ // point 5 relations
+            [3, 5], // to point 3 - distance 5
+            [4, 1], // to point 4 - distance 1
+        ],
+    ];
+    $dijkstra = new Algorithms\Dijkstra($relations);
 ```
 
 #### Creator method
 
 ```php
-  $dijkstra = new Algorithms\Dijkstra(function(Algorithms\Dijkstra\Creator $creator){
-    $point = $creator->addPoint(1)
-                     ->addRelation(2, 5);
-    $creator->addPoint(3)
-            ->addRelation($point, 8)
-            ->addRelation(2, 3);
-  }); # Algorithms\Dijkstra
+    $dijkstra = new Algorithms\Dijkstra(function (Algorithms\Dijkstra\Creator $creator) {
+        $point = $creator->addPoint(1)
+                         ->addRelation(2, 5);
+        $creator->addPoint(3)
+                ->addRelation($point, 8)
+                ->addRelation(2, 3);
+    });
 ```
 
 ### Generate distances
 #### Generate from one point to others
 
 ```php
-  var_dump($dijkstra->distances(1));
+    var_dump($dijkstra->distances(1));
 ```
 
 #### Generate routes all over the graph
 
 ```php
-  var_dump($dijkstra->generate());
+    var_dump($dijkstra->generate());
 ```
 
 ## API
@@ -157,6 +157,6 @@ This method returns ID of current point.
 
 #### Execute
 
-    composer require algorithms/dijkstra
+        composer require algorithms/dijkstra
 
 After use by `Algorithms/Dijkstra` class.
