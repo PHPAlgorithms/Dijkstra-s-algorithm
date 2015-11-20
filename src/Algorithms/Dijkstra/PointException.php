@@ -1,4 +1,6 @@
 <?php
 namespace Algorithms\Dijkstra;
 
-class PointException extends \Exception {}
+class PointException extends \Exception
+{
+}
