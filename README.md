@@ -1,5 +1,5 @@
 # Dijkstra's algorithm
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/ventaquil/Dijkstra-s-algorithm/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/ventaquil/Dijkstra-s-algorithm/?branch=master) [![Build Status](https://travis-ci.org/PHPAlgorithms/Dijkstra-s-algorithm.svg?branch=master)](https://travis-ci.org/PHPAlgorithms/Dijkstra-s-algorithm) [![Code Climate](https://codeclimate.com/github/PHPAlgorithms/Dijkstra-s-algorithm/badges/gpa.svg)](https://codeclimate.com/github/PHPAlgorithms/Dijkstra-s-algorithm)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/PHPAlgorithms/Dijkstra-s-algorithm/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/PHPAlgorithms/Dijkstra-s-algorithm/?branch=master) [![Build Status](https://travis-ci.org/PHPAlgorithms/Dijkstra-s-algorithm.svg?branch=master)](https://travis-ci.org/PHPAlgorithms/Dijkstra-s-algorithm) [![Code Climate](https://codeclimate.com/github/PHPAlgorithms/Dijkstra-s-algorithm/badges/gpa.svg)](https://codeclimate.com/github/PHPAlgorithms/Dijkstra-s-algorithm)
 
 ## How to use
 ### Create connections between points
