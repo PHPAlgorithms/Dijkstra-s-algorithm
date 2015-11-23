@@ -28,7 +28,7 @@ class Creator
     {
         try {
             return $this->getPointOrFail($point_id);
-        } catch(PointException $e) {
+        } catch (PointException $e) {
             return NULL;
         }
     }
