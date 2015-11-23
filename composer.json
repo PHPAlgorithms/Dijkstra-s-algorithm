@@ -2,8 +2,8 @@
   "name": "algorithms/dijkstra",
   "description": "Implementation of Dijkstra's algorithm.",
   "type": "library",
-  "version": "1.1.16",
-  "homepage": "https://github.com/ventaquil/Dijkstra-s-algorithm",
+  "version": "1.2.0",
+  "homepage": "https://github.com/PHPAlgorithms/Dijkstra-s-algorithm",
   "keywords": ["algorithm", "dijkstra", "algorithms"],
   "authors": [
     {
