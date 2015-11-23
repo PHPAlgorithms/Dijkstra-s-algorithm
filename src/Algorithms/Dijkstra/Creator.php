@@ -4,20 +4,65 @@ namespace Algorithms\Dijkstra;
 class Creator
 {
     private $points = array();
+    private $labels = array();
+
+    private static function checkPointID($point)
+    {
+        if (is_int($point) && ($point > 0)) {
+            return 'int';
+        } else {
+            return 'string';
+        }
+    }
+
+    private function randNewID()
+    {
+        do {
+            $rand = mt_rand();
+        } while (isset($this->points[$rand]));
+
+        return $rand;
+    }
+
+    private function createPointFromID($point_id, $label = null)
+    {
+        if (empty($label)) {
+            $new_point = Point::create($point_id);
+        } else {
+            $new_point = Point::create($point_id, $label);
+        }
+
+        $this->points[$point_id] = $new_point;
+
+        return $new_point;
+    }
 
     public function addPoint($point)
     {
         if (Point::checkPoint($point)) {
-            $this->points[$point->getID()] = $point;
+            $id = $point->getID();
+
+            $this->points[$id] = $point;
+
+            $label = $point->getLabel();
+            if (!empty($label)) {
+                $this->labels[$label] = $id;
+            }
 
             return $point;
-        } else {
+        } elseif (self::checkPointID($point) == 'int') {
             if (!isset($this->points[$point])) {
-                $new_point = Point::create($point);
+                return self::createPointFromID($point);
+            } else {
+                throw new CreatorException('Point was added earlier');
+            }
+        } else {
+            if (!isset($this->labels[$point])) {
+                $id = $this->randNewID();
 
-                $this->points[$point] = $new_point;
+                $this->labels[$point] = $id;
 
-                return $new_point;
+                return self::createPointFromID($id);
             } else {
                 throw new CreatorException('Point was added earlier');
             }
@@ -37,6 +82,8 @@ class Creator
     {
         if (isset($this->points[$point_id])) {
             return $this->points[$point_id];
+        } elseif (isset($this->labels[$point_id])) {
+            return $this->points[$this->labels[$point_id]];
         } else {
             throw new PointException('Point not exists');
         }

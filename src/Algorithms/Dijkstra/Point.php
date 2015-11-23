@@ -5,19 +5,21 @@ class Point
 {
     private $id;
     private $distances = array();
+    private $label = null;
 
-    public function __construct($point_id)
+    public function __construct($point_id, $label = null)
     {
         if (is_int($point_id)) {
             $this->id = $point_id;
+            $this->label = $label;
         } else {
             throw new PointException('Wrong data sent');
         }
     }
 
-    public static function create($point_id)
+    public static function create($point_id, $label = null)
     {
-        return new self($point_id);
+        return new self($point_id, $label);
     }
 
     public static function checkPoint($point)
@@ -74,5 +76,10 @@ class Point
     public function getID()
     {
         return $this->id;
+    }
+
+    public function getLabel()
+    {
+        return $this->label;
     }
 }

@@ -82,4 +82,8 @@ new Algorithms\Dijkstra(function (Algorithms\Dijkstra\Creator $creator) {
     $creator->addPoint(3)
             ->addRelation($point, 8)
             ->addRelation(2, 3);
+
+    $point = $creator->addPoint('my custom label');
+    $creator->getPoint(3)
+            ->addRelation($point, 12);
 });
