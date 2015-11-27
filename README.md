@@ -38,7 +38,7 @@
 #### Creator method
 
 ```php
-    $dijkstra = new Algorithms\Dijkstra(function (Algorithms\Dijkstra\Creator $creator) {
+    $dijkstra = new Algorithms\Dijkstra(function (Algorithms\GraphTools\Creator $creator) {
         $point = $creator->addPoint(1)
                          ->addRelation(2, 5);
         $creator->addPoint(3)
@@ -79,7 +79,7 @@ Method generate the shortest ways between all points in `public $relations` arra
 
 * * *
 
-#### `private d(int $source, int $point, array &$visited = array())`
+#### `private dist(int $source, int $point, array &$visited = array())`
 Method generate the shortest ways from `$source` to other points. `$point` and `$visited` variables is help-variables. At start `$point` should be equal `$source`.
 
 * * *
@@ -91,65 +91,6 @@ Alias for `d(int $source, int $point, array &$visited = array())`.
 
 #### `private static validate(array $relations_array)`
 Method validates `$relations_array` and if wrong data sent (or array is not builded correctly) then returns false - otherwise true.
-
-* * *
-
-### `Algorithms\Dijkstra\Creator` methods
-#### `public addPoint(int|Algorithms\Dijkstra\Point $point)`
-`$point` variable is point ID or `Algorithms\Dijkstra\Point` object.
-
-Method adds point to current `Algorithms\Dijkstra\Creator` object.
-
-* * *
-
-#### `public getPointOrFail(int $point_id)`
-Method get from currenct `Algorithms\Dijkstra\Creator` object point which ID is `$point_id`. If point exists return `Algorithms\Dijkstra\Point` object, otherwise throw `Algorithms\Dijkstra\PointException`.
-
-* * *
-
-#### `public getPoint(int $point_id)`
-Method working like `getPointOrFail()` but when point not exists return `NULL`.
-
-* * *
-
-#### `public createConnections(void)`
-Method returns `array` of relations between points in current `Algorithms\Dijkstra\Creator` object.
-
-* * *
-
-### `Algorithms\Dijkstra\Point` methods
-#### `public __construct(int $point_id)`
-Method creates new `Algorithms\Dijkstra\Point` object with `$point_id` ID. If `$point_id` is not int method throws `Algorithms\Dijkstra\PointException`.
-
-* * *
-
-#### `public static create(int $point_id)`
-Method create new `Algorithms\Dijkstra\Point` object with `$point_id` as ID.
-
-* * *
-
-#### `static validate(int|Algorithms\Dijkstra\Point $point)`
-Method check `$point` variable and return `$point` where it is an `int`, return point ID where it is the `Algorithms\Dijkstra\Point` object or throw `Algorithms\Dijkstra\PointException` otherwise.
-
-* * *
-
-#### `public addRelation(int|Algorithms\Dijkstra\Point $point, int $distance)`
-Add value to private `$distances` array between current point and point which is equal `$point` or ID is equal `$point`. When `$point` variable is not an `int` or `Algorithms\Dijkstra\Point` object method throws `Algorithms\Dijkstra\PointException`.
-
-* * *
-
-#### `public getDinstances(void)`
-Get all distances from this point to others which are connected with current.
-
-* * *
-
-#### `public distanceTo(int|Algorithms\Dijkstra\Point $point)`
-Method returns distance to point which equal to `$point` or point ID is equal to `$point`.
-
-* * *
-
-#### `public getID(void)`
-This method returns ID of current point.
 
 * * *
 
