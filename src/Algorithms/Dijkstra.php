@@ -29,74 +29,85 @@ class Dijkstra
 
     public function generate()
     {
-        $result = []; # Prepare results array
+        $results = []; # Prepare results array
 
         # Analyze all relations
-            foreach ($this->relations as $point => $relation) {
-                # Prepare $points array by isset source point
-                    $this->points = [
-                        $point => [
-                            0,
-                            '',
-                        ],
-                    ];
+        foreach ($this->relations as $point => $relation) {
+            # Prepare $points array by isset source point
+            $this->points = [
+                $point => [
+                    0,
+                    '',
+                ],
+            ];
 
-                $this->dist($point, $point);
-                $result[$point] = $this->points; # Copy $points content to results array
-            }
+            $this->dist($point, $point);
+            $results[$point] = $this->points; # Copy $points content to results array
+        }
 
-        return $result;
+        return $results;
     }
 
-    private function dist($source, $point, &$visited = [])
+    private function dist($source, $pointId, &$visited = [])
     {
-        $visited[$point] = true; # Set current point as visited
+        $visited[$pointId] = true; # Set current point as visited
 
         # Prepare help variables
-            $min_ptr = -1;
-            $min = 0;
+        $min_ptr = -1;
+        $min = 0;
 
         # Analyzes point neighborhood
-            foreach ($this->relations[$point] as $relation) {
-                if ($relation[0] != $source) { # If current point is different than source
-                    if (empty($visited[$relation[0]])) { # If current point is not visited
-                        if ($min_ptr == -1) { # When minimal point is not finded
-                            $min_ptr = $relation[0];
-                            $min = $relation[1];
-                        } else {
-                            if ($min > $relation[1]) {
-                                $min_ptr = $relation[0];
-                                $min = $relation[1];
-                            }
-                        }
-                    }
+        foreach ($this->relations[$pointId] as $relation) {
+            if ($relation[0] != $source) { # If current point is different than source
+                list($min_ptr, $min) = $this->setMinPtr($relation, $visited, $min_ptr, $min);
 
-                    # Change the shortest way to current point
-                        if (isset($this->points[$point][0])) {
-                            $first_field = $this->points[$point][0];
-                        } else {
-                            $first_field = 0;
-                        }
+                # Change the shortest way to current point
+                $distance = $this->getShortestDistance($pointId);
 
-                        if (empty($this->points[$relation[0]])) {
-                            $this->points[$relation[0]] = [
-                                $first_field + $relation[1],
-                                ((empty($this->points[$point][1])) ? $point : $this->points[$point][1]) . ':' . $relation[0],
-                            ];
-                        } else {
-                            if ($this->points[$relation[0]][0] > ($this->points[$point][0] + $relation[1])) {
-                                $this->points[$relation[0]] = [
-                                    (isset($this->points[$point][0]) ? $this->points[$point][0] : 0) + $relation[1],
-                                    (empty($this->points[$point][1]) ? null : $this->points[$point][1] . ':') . $relation[0],
-                                ];
-                            }
-                        }
-                }
+                $this->updatePoint($pointId, $relation, $distance);
             }
+        }
 
         # If isset unvisited point with minimal way go for it
-            if ($min_ptr != -1) {
-                $this->dist($source, $min_ptr, $visited);
+        if ($min_ptr != -1) {
+            $this->dist($source, $min_ptr, $visited);
+        }
+    }
+
+    private function getShortestDistance($pointId)
+    {
+        return isset($this->points[$pointId][0]) ? $this->points[$pointId][0] : 0;
+    }
+
+    private function setMinPtr($relation, $visited, $min_ptr, $min)
+    {
+        if (empty($visited[$relation[0]])) { # If current point is not visited
+            if ($min_ptr == -1) { # When minimal point is not finded
+                $min_ptr = $relation[0];
+                $min = $relation[1];
+            } elseif ($min > $relation[1]) {
+                $min_ptr = $relation[0];
+                $min = $relation[1];
+            }
+        }
+
+        return array($min_ptr, $min);
+    }
+
+    private function updatePoint($pointId, $relation, $distance)
+    {
+        if (empty($this->points[$relation[0]])) {
+                $this->points[$relation[0]] = [
+                    $distance + $relation[1],
+                    ((empty($this->points[$pointId][1])) ? $pointId : $this->points[$pointId][1]) . ':' . $relation[0],
+                ];
+            } else {
+                if ($this->points[$relation[0]][0] > ($this->points[$pointId][0] + $relation[1])) {
+                    $this->points[$relation[0]] = [
+                        (isset($this->points[$pointId][0]) ? $this->points[$pointId][0] : 0) + $relation[1],
+                        (empty($this->points[$pointId][1]) ? null : $this->points[$pointId][1] . ':') . $relation[0],
+                    ];
+                }
             }
     }
 
