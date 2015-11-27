@@ -4,9 +4,55 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "04aaaf007b7569fedbd7035d3834c2f4",
-    "content-hash": "2ca141d7fea693109ba6edc572d13240",
-    "packages": [],
+    "hash": "ed922e301a18ad1a84f56800f5cf5037",
+    "content-hash": "74d1022b2b5a86502621be35c536497b",
+    "packages": [
+        {
+            "name": "algorithms/graphtools",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/PHPAlgorithms/GraphTools.git",
+                "reference": "4e209d765fda21fb1ec9cef003258d814fe69156"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/PHPAlgorithms/GraphTools/zipball/4e209d765fda21fb1ec9cef003258d814fe69156",
+                "reference": "4e209d765fda21fb1ec9cef003258d814fe69156",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Algorithms": "src/",
+                    "Algorithms\\Tests": "tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "ventaquil",
+                    "email": "ventaquil@outlook.com"
+                }
+            ],
+            "description": "Graph tools to another math algorithms.",
+            "homepage": "https://github.com/PHPAlgorithms/GraphTools",
+            "keywords": [
+                "Algorithm",
+                "graph",
+                "math",
+                "tool",
+                "tools"
+            ],
+            "time": "2015-11-27 10:12:32"
+        }
+    ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",

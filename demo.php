@@ -55,7 +55,7 @@ var_dump($dijkstra->distances(1)); // all distances from point 1 to other points
 var_dump($dijkstra->generate()); // all distances from all points to all points
 
 // Or set this relations in another way
-$dijkstra = new Algorithms\Dijkstra(function (Algorithms\Dijkstra\Creator $creator) {
+$dijkstra = new Algorithms\Dijkstra(function (Algorithms\GraphTools\Creator $creator) {
     $creator->addPoint(1)
             ->addRelation(2, 1);
 
@@ -75,7 +75,7 @@ var_dump($dijkstra->distances(1));
 var_dump($dijkstra->generate());
 
 // You can also add points like that
-new Algorithms\Dijkstra(function (Algorithms\Dijkstra\Creator $creator) {
+new Algorithms\Dijkstra(function (Algorithms\GraphTools\Creator $creator) {
     $point = $creator->addPoint(1)
                      ->addRelation(2, 5);
 

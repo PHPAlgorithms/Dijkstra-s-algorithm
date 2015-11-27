@@ -34,7 +34,7 @@ class ObjectModeTest extends \PHPUnit_Framework_TestCase
         ];
 
 		$dijkstra = new \Algorithms\Dijkstra($relations); # Create new object with relations
-        $new_dijkstra = new \Algorithms\Dijkstra(function (\Algorithms\Dijkstra\Creator $creator) {
+        $new_dijkstra = new \Algorithms\Dijkstra(function (\Algorithms\GraphTools\Creator $creator) {
             $creator->addPoint(1)
                     ->addRelation(2, 1)
                     ->addRelation(4, 2);

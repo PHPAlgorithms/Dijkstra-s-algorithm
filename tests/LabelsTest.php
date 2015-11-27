@@ -5,12 +5,12 @@ class LabelsTest extends \PHPUnit_Framework_TestCase
 {
     public function testLabel()
     {
-        $point = new \Algorithms\Dijkstra\Point(1, 'label');
+        $point = new \Algorithms\GraphTools\Point(1, 'label');
         $this->assertNotEmpty($point);
         $this->assertNotEmpty($point->getID());
         $this->assertNotEmpty($point->getLabel());
 
-        $creator = new \Algorithms\Dijkstra\Creator;
+        $creator = new \Algorithms\GraphTools\Creator;
         $creator->addPoint($point);
         $creator->addPoint(2);
         $creator->addPoint('another label');

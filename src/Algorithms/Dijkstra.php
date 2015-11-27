@@ -19,7 +19,7 @@ class Dijkstra
             $this->relations = $relations;
         } else {
             if (is_callable($relations) && ($relations instanceof \Closure)) {
-                $creator = new Dijkstra\Creator;
+                $creator = new GraphTools\Creator;
                 call_user_func($relations, $creator);
 
                 $this->relations = $creator->createConnections();
@@ -41,14 +41,14 @@ class Dijkstra
                         ],
                     ];
 
-                $this->d($point, $point);
+                $this->dist($point, $point);
                 $result[$point] = $this->points; # Copy $points content to results array
             }
 
         return $result;
     }
 
-    private function d($source, $point, &$visited = [])
+    private function dist($source, $point, &$visited = [])
     {
         $visited[$point] = TRUE; # Set current point as visited
 
@@ -96,13 +96,13 @@ class Dijkstra
 
         # If isset unvisited point with minimal way go for it
             if ($min_ptr != -1) {
-                $this->d($source, $min_ptr, $visited);
+                $this->dist($source, $min_ptr, $visited);
             }
     }
 
     public function distances($point)
     {
-        $this->d($point, $point);
+        $this->dist($point, $point);
         return $this->points;
     }
 
