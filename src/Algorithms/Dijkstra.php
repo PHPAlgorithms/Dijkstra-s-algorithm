@@ -119,31 +119,28 @@ class Dijkstra
 
     private static function validate($relations_array)
     {
-        if (is_array($relations_array)) {
-            $return = true;
+        $return = is_array($relations_array);
+
+        if ($return) {
             foreach ($relations_array as $relations) {
                 $return = self::checkPointRelations($relations);
             }
-
-            return $return;
-        } else {
-            return false;
         }
+
+        return $return;
     }
 
     private static function checkPointRelations($relations)
     {
-        if (is_array($relations)) {
-            $return = true;
+        $return = is_array($relations);
 
+        if ($return) {
             foreach ($relations as $relation) {
                 $return = self::checkSingleRelation($relation);
             }
-
-            return $return;
-        } else {
-            return false;
         }
+
+        return $return;
     }
 
     private static function checkSingleRelation($relation)
