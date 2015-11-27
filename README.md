@@ -89,7 +89,7 @@ Alias for `d(int $source, int $point, array &$visited = array())`.
 
 * * *
 
-#### `private static validate(array $relations_array)`
+#### `public static validate(array $relations_array)`
 Method validates `$relations_array` and if wrong data sent (or array is not builded correctly) then returns false - otherwise true.
 
 * * *
