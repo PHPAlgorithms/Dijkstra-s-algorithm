@@ -117,7 +117,7 @@ class Dijkstra
         return $this->points;
     }
 
-    private static function validate($relations_array)
+    public static function validate($relations_array)
     {
         $return = is_array($relations_array);
 
