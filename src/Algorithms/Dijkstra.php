@@ -5,6 +5,7 @@ class Dijkstra
 {
     protected $points;
     protected $relations;
+    protected $generated = null;
 
     public function __construct($relations = null)
     {
@@ -29,23 +30,34 @@ class Dijkstra
 
     public function generate()
     {
-        $results = []; # Prepare results array
+        return $this->generated(function () {
+            $results = []; # Prepare results array
 
-        # Analyze all relations
-        foreach ($this->relations as $point => $relation) {
-            # Prepare $points array by isset source point
-            $this->points = [
-                $point => [
-                    0,
-                    '',
-                ],
-            ];
+            # Analyze all relations
+            foreach ($this->relations as $point => $relation) {
+                # Prepare $points array by isset source point
+                $this->points = [
+                    $point => [
+                        0,
+                        '',
+                    ],
+                ];
 
-            $this->dist($point, $point);
-            $results[$point] = $this->points; # Copy $points content to results array
+                $this->dist($point, $point);
+                $results[$point] = $this->points; # Copy $points content to results array
+            }
+
+            return $results;
+        });
+    }
+
+    private function generated($function)
+    {
+        if (empty($this->generated)) {
+            $this->generated = $function();
         }
 
-        return $results;
+        return $this->generated;
     }
 
     private function dist($source, $pointId, &$visited = [])
@@ -123,7 +135,7 @@ class Dijkstra
 
         if ($return) {
             foreach ($relations_array as $relations) {
-                $return = self::checkPointRelations($relations);
+                $return &= self::checkPointRelations($relations);
             }
         }
 
@@ -136,7 +148,7 @@ class Dijkstra
 
         if ($return) {
             foreach ($relations as $relation) {
-                $return = self::checkSingleRelation($relation);
+                $return &= self::checkSingleRelation($relation);
             }
         }
 
