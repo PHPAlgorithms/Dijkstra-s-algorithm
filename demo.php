@@ -30,8 +30,8 @@ $relations = [
 ];
 
 $dijkstra = new Algorithms\Dijkstra($relations);
-print_r($dijkstra->distances(1)); // all distances from point 1 to other points
-print_r($dijkstra->generate()); // all distances from all points to all points
+var_dump($dijkstra->distances(1)); // all distances from point 1 to other points
+var_dump($dijkstra->generate()); // all distances from all points to all points
 $relations = [
     1 => [ // point 1 relations
         [2, 1], // to point 2 - distance 1

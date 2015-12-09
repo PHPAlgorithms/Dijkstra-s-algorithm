@@ -40,7 +40,7 @@ class DijkstraTest extends \PHPUnit_Framework_TestCase
         $this->assertNotEmpty($dijkstra);
 
 		$distances = $dijkstra->distances(1); # Distances from first point
-		$this->assertEquals(4, count($distances));
+		$this->assertEquals(5, count($distances));
 		$this->assertEquals(2, $distances[4][0]);
 		$this->assertEquals('1:4:3', $distances[3][1]);
 

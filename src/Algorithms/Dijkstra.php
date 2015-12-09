@@ -3,7 +3,7 @@ namespace Algorithms;
 
 class Dijkstra
 {
-    protected $points;
+    protected $points = array();
     protected $relations;
     protected $generated = null;
 
@@ -30,34 +30,27 @@ class Dijkstra
 
     public function generate()
     {
-        return $this->generated(function () {
+        return DijkstraCache::loadMany($this->generated, function () {
             $results = []; # Prepare results array
 
             # Analyze all relations
             foreach ($this->relations as $point => $relation) {
-                # Prepare $points array by isset source point
-                $this->points = [
-                    $point => [
-                        0,
-                        '',
-                    ],
-                ];
-
-                $this->dist($point, $point);
-                $results[$point] = $this->points; # Copy $points content to results array
+                $results[$point] = DijkstraCache::loadOne($this->generated, $point, function () use ($point) {
+                    return $this->distances($point);
+                });
             }
 
             return $results;
         });
     }
 
-    private function generated($function)
+    private function init($point)
     {
-        if (empty($this->generated)) {
-            $this->generated = $function();
-        }
+        $this->points = array();
 
-        return $this->generated;
+        $this->points[$point] = DijkstraCache::loadOne($this->generated, $point, function () {
+           return array(0, ''); 
+        });
     }
 
     private function dist($source, $pointId, &$visited = [])
@@ -109,24 +102,27 @@ class Dijkstra
     private function updatePoint($pointId, $relation, $distance)
     {
         if (empty($this->points[$relation[0]])) {
+            $this->points[$relation[0]] = [
+                $distance + $relation[1],
+                ((empty($this->points[$pointId][1])) ? $pointId : $this->points[$pointId][1]) . ':' . $relation[0],
+            ];
+        } else {
+            if ($this->points[$relation[0]][0] > ($this->points[$pointId][0] + $relation[1])) {
                 $this->points[$relation[0]] = [
-                    $distance + $relation[1],
-                    ((empty($this->points[$pointId][1])) ? $pointId : $this->points[$pointId][1]) . ':' . $relation[0],
+                    (isset($this->points[$pointId][0]) ? $this->points[$pointId][0] : 0) + $relation[1],
+                    (empty($this->points[$pointId][1]) ? null : $this->points[$pointId][1] . ':') . $relation[0],
                 ];
-            } else {
-                if ($this->points[$relation[0]][0] > ($this->points[$pointId][0] + $relation[1])) {
-                    $this->points[$relation[0]] = [
-                        (isset($this->points[$pointId][0]) ? $this->points[$pointId][0] : 0) + $relation[1],
-                        (empty($this->points[$pointId][1]) ? null : $this->points[$pointId][1] . ':') . $relation[0],
-                    ];
-                }
             }
+        }
     }
 
     public function distances($point)
     {
-        $this->dist($point, $point);
-        return $this->points;
+        return DijkstraCache::loadOne($this->generated, $point, function () use ($point) {
+            $this->init($point);
+            $this->dist($point, $point);
+            return $this->points;
+        });
     }
 
     public static function validate($relations_array)
