@@ -1,89 +1,38 @@
 <?php
+
 require_once(__DIR__ . '/vendor/autoload.php');
 
-// Simple relations
-$relations = [
-    1 => [ // point 1 relations
-        [2, 1], // to point 2 - distance 1
-        [4, 2], // to point 4 - distance 2
-    ],
-    2 => [ // point 2 relations
-        [1, 1], // to point 1 - distance 1
-        [3, 3], // to point 3 - distance 3
-        [4, 3], // to point 4 - distance 3
-    ],
-    3 => [ // point 3 relations
-        [2, 3], // to point 2 - distance 3
-        [4, 1], // to point 4 - distance 1
-        [5, 5], // to point 5 - distance 5
-    ],
-    4 => [ // point 4 relations
-        [1, 2], // to point 1 - distance 2
-        [2, 3], // to point 2 - distance 3
-        [3, 1], // to point 3 - distance 1
-        [5, 1], // to point 5 - distance 1
-    ],
-    5 => [ // point 5 relations
-        [3, 5], // to point 3 - distance 5
-        [4, 1], // to point 4 - distance 1
-    ],
-];
+use PHPAlgorithms\Dijkstra;
+use PHPAlgorithms\Dijkstra\Creator;
 
-$dijkstra = new Algorithms\Dijkstra($relations);
-var_dump($dijkstra->distances(1)); // all distances from point 1 to other points
-var_dump($dijkstra->generate()); // all distances from all points to all points
-$relations = [
-    1 => [ // point 1 relations
-        [2, 1], // to point 2 - distance 1
-    ],
-    2 => [ // point 2 relations
-        [3, 1], // to point 3 - distance 1
-    ],
-    3 => [ // point 3 relations
-        [1, 1], // to point 1 - distance 1
-    ],
-    4 => [ // point 4 relations
-        [5, 1], // to point 5 - distance 1
-    ],
-    5 => [ // point 5 relations
-        [4, 1], // to point 5 - distance 1
-    ],
-];
+$dijkstra = new Dijkstra(function (Creator $creator) {
+    $point0 = $creator->addPoint();
+    $point1 = $creator->addPoint();
+    $point2 = $creator->addPoint();
+    $point3 = $creator->addPoint();
+    $point4 = $creator->addPoint();
 
-$dijkstra = new Algorithms\Dijkstra($relations);
-var_dump($dijkstra->distances(1)); // all distances from point 1 to other points
-var_dump($dijkstra->generate()); // all distances from all points to all points
-
-// Or set this relations in another way
-$dijkstra = new Algorithms\Dijkstra(function (Algorithms\GraphTools\Creator $creator) {
-    $creator->addPoint(1)
-            ->addRelation(2, 1);
-
-    $creator->addPoint(2)
-            ->addRelation(3, 1);
-
-    $creator->addPoint(3)
-            ->addRelation(1, 1);
-
-    $creator->addPoint(4)
-            ->addRelation(5, 1);
-
-    $creator->addPoint(5)
-            ->addRelation(4, 1);
+    $point0->addDoubleRelation($point1, 5)
+           ->addDoubleRelation($point3, 24);
+    $point1->addDoubleRelation($point2, 8)
+            ->addDoubleRelation($point4, 18);
+    $point2->addDoubleRelation($point3, 4);
+    $point3->addDoubleRelation($point4, 8);
 });
-var_dump($dijkstra->distances(1));
-var_dump($dijkstra->generate());
 
-// You can also add points like that
-new Algorithms\Dijkstra(function (Algorithms\GraphTools\Creator $creator) {
-    $point = $creator->addPoint(1)
-                     ->addRelation(2, 5);
-
-    $creator->addPoint(3)
-            ->addRelation($point, 8)
-            ->addRelation(2, 3);
-
-    $point = $creator->addPoint('my custom label');
-    $creator->getPoint(3)
-            ->addRelation($point, 12);
+$dijkstra->add(function (Creator $creator) {
+    $creator->addPoint()
+            ->addDoubleRelation($creator->addPoint(), 12);
 });
+
+print_r($dijkstra->generateAll());
+
+$dijkstra = new Dijkstra(function (Creator $creator) {
+    $creator->addPoint('0')
+            ->addRelation($creator->addPoint('1'), 10)
+            ->addRelation($creator->addPoint('2'), 3);
+    $creator->getPoint(2)
+            ->addRelation($creator->getPoint(1), 5);
+});
+
+print_r($dijkstra->generateAll());

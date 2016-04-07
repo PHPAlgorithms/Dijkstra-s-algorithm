@@ -1,9 +1,9 @@
 {
-  "name": "algorithms/dijkstra",
+  "name": "phpalgorithms/dijkstra",
   "description": "Implementation of Dijkstra's algorithm.",
   "type": "library",
   "homepage": "https://github.com/PHPAlgorithms/Dijkstra-s-algorithm",
-  "keywords": ["algorithm", "dijkstra", "algorithms"],
+  "keywords": ["algorithm", "algorithms", "graph", "dijkstra", "math", "php"],
   "authors": [
     {
       "name": "ventaquil",
@@ -12,14 +12,14 @@
   ],
   "license": "MIT",
   "autoload": {
-    "psr-0": {
-      "Algorithms": "src/",
-      "Algorithms\\Tests": "tests/"
+    "psr-4": {
+      "PHPAlgorithms\\": "src/",
+      "PHPAlgorithms\\Dijkstra\\Tests\\": "tests/"
     }
   },
   "require": {
-    "php": ">=5.4.0",
-    "algorithms/graphtools": "*"
+    "php": ">=5.5.0",
+    "phpalgorithms/graphtools": "~2@stable"
   },
   "require-dev": {
     "phpunit/phpunit": "4.*"
