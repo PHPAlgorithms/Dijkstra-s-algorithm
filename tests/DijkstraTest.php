@@ -144,8 +144,8 @@ class DijkstraTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals(13, $dijkstra->generate(0)[2]->distance);
         $this->assertEquals(17, $dijkstra->generate(0)[3]->distance);
         $this->assertEquals(23, $dijkstra->generate(0)[4]->distance);
-        $this->isFalse(isset($dijkstra->generate(0)[5]->distance));
-        $this->isFalse(isset($dijkstra->generate(0)[6]->distance));
+        $this->assertFalse(isset($dijkstra->generate(0)[5]->distance));
+        $this->assertFalse(isset($dijkstra->generate(0)[6]->distance));
 
         $this->assertEquals(5, $dijkstra->generate(1)[0]->distance);
         $this->assertEquals(0, $dijkstra->generate(1)[1]->distance);
@@ -208,8 +208,98 @@ class DijkstraTest extends PHPUnit_Framework_TestCase {
                     ->addRelation($creator->getPoint(4), 3);
         });
 
+        $this->assertEquals(0, $dijkstra->generate(0)[0]->distance);
         $this->assertEquals(8, $dijkstra->generate(0)[1]->distance);
         $this->assertEquals(10, $dijkstra->generate(0)[2]->distance);
-        $this->assertEquals(16, $dijkstra->generate(0)[3]->distance);
+        $this->assertEquals(15, $dijkstra->generate(0)[3]->distance);
+        $this->assertEquals(13, $dijkstra->generate(0)[4]->distance);
+
+        $this->assertFalse(isset($dijkstra->generate(1)[0]->distance));
+        $this->assertEquals(0, $dijkstra->generate(1)[1]->distance);
+        $this->assertFalse(isset($dijkstra->generate(1)[2]->distance));
+        $this->assertEquals(8, $dijkstra->generate(1)[3]->distance);
+        $this->assertFalse(isset($dijkstra->generate(1)[4]->distance));
+
+        $this->assertEquals(10, $dijkstra->generate(2)[0]->distance);
+        $this->assertEquals(13, $dijkstra->generate(2)[1]->distance);
+        $this->assertEquals(0, $dijkstra->generate(2)[2]->distance);
+        $this->assertEquals(5, $dijkstra->generate(2)[3]->distance);
+        $this->assertEquals(3, $dijkstra->generate(2)[4]->distance);
+
+        $this->assertFalse(isset($dijkstra->generate(3)[0]->distance));
+        $this->assertEquals(8, $dijkstra->generate(3)[1]->distance);
+        $this->assertFalse(isset($dijkstra->generate(3)[2]->distance));
+        $this->assertEquals(0, $dijkstra->generate(3)[3]->distance);
+        $this->assertFalse(isset($dijkstra->generate(3)[4]->distance));
+
+        $this->assertFalse(isset($dijkstra->generate(4)[0]->distance));
+        $this->assertEquals(10, $dijkstra->generate(4)[1]->distance);
+        $this->assertFalse(isset($dijkstra->generate(4)[2]->distance));
+        $this->assertEquals(2, $dijkstra->generate(4)[3]->distance);
+        $this->assertEquals(0, $dijkstra->generate(4)[4]->distance);
+
+        $dijkstra = new Dijkstra(function (Creator $creator) {
+            $creator->addPoint();
+            $creator->addPoint();
+            $creator->addPoint();
+            $creator->addPoint();
+            $creator->addPoint();
+            $creator->addPoint();
+
+            $creator->getPoint(0)
+                    ->addDoubleRelation($creator->getPoint(1), 5)
+                    ->addDoubleRelation($creator->getPoint(4), 3)
+                    ->addDoubleRelation($creator->getPoint(5), 18);
+
+            $creator->getPoint(1)
+                    ->addDoubleRelation($creator->getPoint(2), 1)
+                    ->addDoubleRelation($creator->getPoint(3), 8);
+
+            $creator->getPoint(2)
+                    ->addDoubleRelation($creator->getPoint(3), 4)
+                    ->addDoubleRelation($creator->getPoint(5), 2);
+        });
+
+        $this->assertEquals(0, $dijkstra->generate(0)[0]->distance);
+        $this->assertEquals(5, $dijkstra->generate(0)[1]->distance);
+        $this->assertEquals(6, $dijkstra->generate(0)[2]->distance);
+        $this->assertEquals(10, $dijkstra->generate(0)[3]->distance);
+        $this->assertEquals(3, $dijkstra->generate(0)[4]->distance);
+        $this->assertEquals(8, $dijkstra->generate(0)[5]->distance);
+
+        $this->assertEquals(5, $dijkstra->generate(1)[0]->distance);
+        $this->assertEquals(0, $dijkstra->generate(1)[1]->distance);
+        $this->assertEquals(1, $dijkstra->generate(1)[2]->distance);
+        $this->assertEquals(5, $dijkstra->generate(1)[3]->distance);
+        $this->assertEquals(8, $dijkstra->generate(1)[4]->distance);
+        $this->assertEquals(3, $dijkstra->generate(1)[5]->distance);
+
+        $this->assertEquals(6, $dijkstra->generate(2)[0]->distance);
+        $this->assertEquals(1, $dijkstra->generate(2)[1]->distance);
+        $this->assertEquals(0, $dijkstra->generate(2)[2]->distance);
+        $this->assertEquals(4, $dijkstra->generate(2)[3]->distance);
+        $this->assertEquals(9, $dijkstra->generate(2)[4]->distance);
+        $this->assertEquals(2, $dijkstra->generate(2)[5]->distance);
+
+        $this->assertEquals(10, $dijkstra->generate(3)[0]->distance);
+        $this->assertEquals(5, $dijkstra->generate(3)[1]->distance);
+        $this->assertEquals(4, $dijkstra->generate(3)[2]->distance);
+        $this->assertEquals(0, $dijkstra->generate(3)[3]->distance);
+        $this->assertEquals(13, $dijkstra->generate(3)[4]->distance);
+        $this->assertEquals(6, $dijkstra->generate(3)[5]->distance);
+
+        $this->assertEquals(3, $dijkstra->generate(4)[0]->distance);
+        $this->assertEquals(8, $dijkstra->generate(4)[1]->distance);
+        $this->assertEquals(9, $dijkstra->generate(4)[2]->distance);
+        $this->assertEquals(13, $dijkstra->generate(4)[3]->distance);
+        $this->assertEquals(0, $dijkstra->generate(4)[4]->distance);
+        $this->assertEquals(11, $dijkstra->generate(4)[5]->distance);
+
+        $this->assertEquals(8, $dijkstra->generate(5)[0]->distance);
+        $this->assertEquals(3, $dijkstra->generate(5)[1]->distance);
+        $this->assertEquals(2, $dijkstra->generate(5)[2]->distance);
+        $this->assertEquals(6, $dijkstra->generate(5)[3]->distance);
+        $this->assertEquals(11, $dijkstra->generate(5)[4]->distance);
+        $this->assertEquals(0, $dijkstra->generate(5)[5]->distance);
     }
 }
