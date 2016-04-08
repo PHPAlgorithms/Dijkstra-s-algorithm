@@ -2,6 +2,4 @@
 
 namespace PHPAlgorithms\Dijkstra\Exceptions;
 
-use Exception;
-
-class CreatorException extends Exception { }
+class CreatorException extends \Exception { }

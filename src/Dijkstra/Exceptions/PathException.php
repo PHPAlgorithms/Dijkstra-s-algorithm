@@ -2,6 +2,4 @@
 
 namespace PHPAlgorithms\Dijkstra\Exceptions;
 
-use Exception;
-
-class PathException extends Exception { }
+class PathException extends \Exception { }
