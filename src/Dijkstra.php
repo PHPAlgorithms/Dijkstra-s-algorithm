@@ -43,6 +43,17 @@ class Dijkstra {
         return $this;
     }
 
+    private function existsUnvisitedInNeighborhood($visited, $point)
+    {
+        foreach ($this->points[$point]->relations as $relation) {
+            if (!isset($visited[$relation->to->id])) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public function generate($point)
     {
         if ($point instanceof Point) {
@@ -59,7 +70,7 @@ class Dijkstra {
         $previous = null;
         $relation = null;
 
-        do {
+        while (!empty($unvisited) && !is_null($point)) {
             unset($unvisited[$point]);
             $visited[$point] = $point;
 
@@ -84,9 +95,13 @@ class Dijkstra {
                 $point = $relation->to
                                   ->id;
             } else {
-                $point = null;
+                $point = $paths[$point]->nodes[0];
+
+                if (!$this->existsUnvisitedInNeighborhood($visited, $point)) {
+                    $point = null;
+                }
             }
-        } while (!is_null($point));
+        };
 
         return $paths;
     }
@@ -131,9 +146,8 @@ class Dijkstra {
                                              ->addNode($relation->to->id, $relation->distance);
                 }
             } else {
-                $paths[$relation->to->id] = new Path();
-                $paths[$relation->to->id]->copy($paths[$point])
-                                         ->addNode($relation->to->id, $relation->distance);
+                $paths[$relation->to->id] = (new Path())->copy($paths[$point])
+                                                        ->addNode($relation->to->id, $relation->distance);
             }
         }
     }
