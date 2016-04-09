@@ -119,13 +119,7 @@ class Dijkstra {
      */
     public function generate($point)
     {
-        if ($point instanceof Point) {
-            $point = $point->id;
-        }
-
-        if (!isset($this->points[$point])) {
-            throw new Exception("Point with id {$point} not exists");
-        }
+        $point = $this->getPointID($point);
 
         $startPoint = $point;
 
@@ -133,7 +127,6 @@ class Dijkstra {
         $unvisited = array_keys($this->points);
         $paths = array();
         $previous = null;
-        $relation = null;
 
         while (!empty($unvisited) && !is_null($point)) {
             unset($unvisited[$point]);
@@ -209,6 +202,26 @@ class Dijkstra {
         } else {
             return null;
         }
+    }
+
+    /**
+     * Method gets from Point object identifier or checks given value. If this value not exists in $points object property then throws exception.
+     *
+     * @param mixed $point Value to check.
+     * @return integer Point identifier.
+     * @throws Exception Method throws exception when given value not exists in $points array.
+     */
+    private function getPointID($point)
+    {
+        if ($point instanceof Point) {
+            $point = $point->id;
+        }
+
+        if (!isset($this->points[$point])) {
+            throw new Exception("Point with id {$point} not exists");
+        }
+
+        return $point;
     }
 
     /**
