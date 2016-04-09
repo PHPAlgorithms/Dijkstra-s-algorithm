@@ -1,22 +1,33 @@
 <?php
 
+/**
+ * @author ventaquil <ventaquil@outlook.com>
+ * @licence MIT
+ */
+
 namespace PHPAlgorithms\Dijkstra;
 
 use PHPAlgorithms\Dijkstra\Exceptions\PathException;
+use PHPAlgorithms\GraphTools\Traits\MagicGet;
 
 class Path {
+    use MagicGet;
+
+    /**
+     * @var Point[] $nodes Added points to current path.
+     * @var integer $distance Distance of the path.
+     */
     private $nodes = array();
     private $distance = 0;
 
-    public function __get($name)
-    {
-        if (isset($this->{$name})) {
-            return $this->{$name};
-        }
-
-        return null;
-    }
-
+    /**
+     * Method adds node to end of current path.
+     *
+     * @param Point|integer $point Point object or point identifier.
+     * @param integer $distance Distance between this node and the last one in path.
+     * @return Path Reference to current object.
+     * @throws PathException Method throws exception when checkDistance() method throws exception.
+     */
     public function addNode($point, $distance = 0)
     {
         if ($point instanceof Point) {
@@ -32,6 +43,12 @@ class Path {
         return $this;
     }
 
+    /**
+     * Method checks given $distance value.
+     *
+     * @param integer $distance
+     * @throws PathException Method throws exception when $distance is not numeric value or when $distance is less or equal to 0.
+     */
     public function checkDistance($distance)
     {
         if (!is_numeric($distance) && ($distance <= 0)) {
@@ -39,6 +56,12 @@ class Path {
         }
     }
 
+    /**
+     * Method copy data of given Path object to current class instance.
+     *
+     * @param Path $path Path object whose data we want to copy.
+     * @return Path $this Reference to current object.
+     */
     public function copy(self $path)
     {
         $this->nodes = $path->nodes;

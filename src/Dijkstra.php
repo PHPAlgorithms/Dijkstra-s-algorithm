@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @author ventaquil <ventaquil@outlook.com>
+ * @licence MIT
+ */
+
 namespace PHPAlgorithms;
 
 use Closure;
@@ -9,8 +14,16 @@ use PHPAlgorithms\Dijkstra\Path;
 use PHPAlgorithms\Dijkstra\Point;
 
 class Dijkstra {
+    /**
+     * @var array
+     */
     private $points = array();
 
+    /**
+     * Dijkstra constructor.
+     *
+     * @param Closure|null $function Anonymous function to create relations.
+     */
     public function __construct($function = null)
     {
         if (!is_null($function)) {
@@ -18,6 +31,13 @@ class Dijkstra {
         }
     }
 
+    /**
+     * Method executes sent function and add result to $points parameter.
+     *
+     * @param Closure $function Anonymous function to create relations.
+     * @return Dijkstra $this Reference to the same object.
+     * @throws Exception Method throws exception when $function argument isn't a Closure object.
+     */
     public function add($function)
     {
         if (!($function instanceof Closure)) {
@@ -43,6 +63,13 @@ class Dijkstra {
         return $this;
     }
 
+    /**
+     * Method search unvisited points in neighborhood of sent point.
+     *
+     * @param integer[] $visited Array of visited points' ids.
+     * @param integer $point Point id.
+     * @return boolean True when exists unvisited point in neighborhood or false otherwise.
+     */
     private function existsUnvisitedInNeighborhood($visited, $point)
     {
         foreach ($this->points[$point]->relations as $relation) {
@@ -54,6 +81,13 @@ class Dijkstra {
         return false;
     }
 
+    /**
+     * Method generates path for given Point object or point id.
+     *
+     * @param Point|integer $point Point object or point identification number.
+     * @return Path[] Array of Path objects.
+     * @throws Exception Throws exception when sent point not isset in object's $point array.
+     */
     public function generate($point)
     {
         if ($point instanceof Point) {
@@ -106,6 +140,12 @@ class Dijkstra {
         return $paths;
     }
 
+    /**
+     * Method generates paths for all defined points.
+     *
+     * @return Path[][] Two-dimensional array of Path objects.
+     * @throws Exception Method throws exception when generate() method throws exception.
+     */
     public function generateAll()
     {
         $generated = array();
@@ -117,6 +157,14 @@ class Dijkstra {
         return $generated;
     }
 
+    /**
+     * Method try to find minimal relation to another point from given point.
+     * 
+     * @param integer[] $unvisited Array of unvisited points' ids.
+     * @param Path[] $paths Array of generated Path objects.
+     * @param integer $point Point integer identifier.
+     * @return Dijkstra\Relation|null Method returns Relation object or null when minimal relation wasn't found.
+     */
     private function getMinimalRelation($unvisited, $paths, $point)
     {
         $minimalValue = INF;
@@ -137,6 +185,12 @@ class Dijkstra {
         }
     }
 
+    /**
+     * Method updates existing Path object or create new if it's possible.
+     * 
+     * @param Path[] &$paths Array of generated Path[] objects. Given by reference.
+     * @param integer $point Integer point identifier.
+     */
     public function updatePaths(&$paths, $point)
     {
         foreach ($this->points[$point]->relations as $relation) {
