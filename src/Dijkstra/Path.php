@@ -10,11 +10,17 @@ namespace PHPAlgorithms\Dijkstra;
 use PHPAlgorithms\Dijkstra\Exceptions\PathException;
 use PHPAlgorithms\GraphTools\Traits\MagicGet;
 
+/**
+ * Class Path
+ * @package PHPAlgorithms\Dijkstra
+ * @property integer[] $nodes
+ * @property integer $distance
+ */
 class Path {
     use MagicGet;
 
     /**
-     * @var Point[] $nodes Added points to current path.
+     * @var integer[] $nodes Added points' ids to current path.
      * @var integer $distance Distance of the path.
      */
     private $nodes = array();

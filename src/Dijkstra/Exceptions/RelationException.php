@@ -7,4 +7,8 @@
 
 namespace PHPAlgorithms\Dijkstra\Exceptions;
 
+/**
+ * Class RelationException
+ * @package PHPAlgorithms\Dijkstra\Exceptions
+ */
 class RelationException extends \Exception { }

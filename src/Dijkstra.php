@@ -13,6 +13,10 @@ use PHPAlgorithms\Dijkstra\Exceptions\Exception;
 use PHPAlgorithms\Dijkstra\Path;
 use PHPAlgorithms\Dijkstra\Point;
 
+/**
+ * Class Dijkstra
+ * @package PHPAlgorithms
+ */
 class Dijkstra {
     /**
      * @var array
@@ -81,6 +85,12 @@ class Dijkstra {
         return false;
     }
 
+    /**
+     * @param integer[] $unvisited Array of unvisited points' ids.
+     * @param integer[] $visited Array of visited points' ids.
+     * @param integer|null $startPoint Start point id.
+     * @return integer|null Method returns point identifier where it exists in $unvisited array or null otherwise.
+     */
     private function findPointWithUncheckedRelation($unvisited, $visited, $startPoint = null)
     {
         if (empty($unvisited)) {

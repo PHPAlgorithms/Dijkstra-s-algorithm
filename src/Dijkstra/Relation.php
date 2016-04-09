@@ -11,6 +11,11 @@ use PHPAlgorithms\Dijkstra\Exceptions\RelationException;
 use PHPAlgorithms\GraphTools\AbstractLine;
 use PHPAlgorithms\GraphTools\Traits\MagicGet;
 
+/**
+ * Class Relation
+ * @package PHPAlgorithms\Dijkstra
+ * @property integer $distance Relation's distance.
+ */
 class Relation extends AbstractLine {
     use MagicGet;
 

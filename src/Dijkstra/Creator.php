@@ -9,6 +9,10 @@ namespace PHPAlgorithms\Dijkstra;
 
 use PHPAlgorithms\Dijkstra\Exceptions\CreatorException;
 
+/**
+ * Class Creator
+ * @package PHPAlgorithms\Dijkstra
+ */
 class Creator {
     /**
      * @var Point[] $points Array of collected Point objects.

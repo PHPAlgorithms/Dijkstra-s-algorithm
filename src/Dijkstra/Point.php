@@ -11,6 +11,12 @@ use PHPAlgorithms\Dijkstra\Exceptions\PointException;
 use PHPAlgorithms\GraphTools\AbstractPoint;
 use PHPAlgorithms\GraphTools\Traits\MagicGet;
 
+/**
+ * Class Point
+ * @package PHPAlgorithms\Dijkstra
+ * @property string $label
+ * @property Relation[] $relations
+ */
 class Point extends AbstractPoint
 {
     use MagicGet;
