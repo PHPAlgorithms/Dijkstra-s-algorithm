@@ -81,6 +81,25 @@ class Dijkstra {
         return false;
     }
 
+    private function findPointWithUncheckedRelation($unvisited, $visited, $startPoint = null)
+    {
+        if (empty($unvisited)) {
+            return null;
+        }
+
+        if (is_null($startPoint)) {
+            foreach ($this->points as $point) {
+                if ($this->existsUnvisitedInNeighborhood($visited, $point->id)) {
+                    return $point->id;
+                }
+            }
+        } elseif ($this->existsUnvisitedInNeighborhood($visited, $startPoint)) {
+            return $startPoint;
+        }
+
+        return null;
+    }
+
     /**
      * Method generates path for given Point object or point id.
      *
@@ -98,6 +117,8 @@ class Dijkstra {
             throw new Exception("Point with id {$point} not exists");
         }
 
+        $startPoint = $point;
+
         $visited = array();
         $unvisited = array_keys($this->points);
         $paths = array();
@@ -109,14 +130,13 @@ class Dijkstra {
             $visited[$point] = $point;
 
             if (!isset($paths[$point])) {
-                $paths[$point] = (new Path())->addNode($point);
-            }
-
-            if (!is_null($previous)) {
-                if (!isset($paths[$point])) {
+                if (is_null($previous)) {
+                    $paths[$point] = new Path();
+                } else {
                     $paths[$point]->copy($paths[$previous]);
-                    $paths[$point]->addNode($point, $relation->distance);
                 }
+
+                $paths[$point]->addNode($point);
             }
 
             $relation = $this->getMinimalRelation($unvisited, $paths, $point);
@@ -129,11 +149,7 @@ class Dijkstra {
                 $point = $relation->to
                                   ->id;
             } else {
-                $point = $paths[$point]->nodes[0];
-
-                if (!$this->existsUnvisitedInNeighborhood($visited, $point)) {
-                    $point = null;
-                }
+                $point = $this->findPointWithUncheckedRelation($unvisited, $visited, $startPoint);
             }
         };
 
