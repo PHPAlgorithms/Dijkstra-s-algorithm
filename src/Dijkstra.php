@@ -16,12 +16,15 @@ use PHPAlgorithms\Dijkstra\Point;
 /**
  * Class Dijkstra
  * @package PHPAlgorithms
+ * @property array $results
  */
 class Dijkstra {
     /**
-     * @var array
+     * @var array $points Array of collected Point objects.
+     * @var array $results Array of generated results.
      */
     private $points = array();
+    private $results = array();
 
     /**
      * Dijkstra constructor.
@@ -121,6 +124,41 @@ class Dijkstra {
     {
         $point = $this->getPointID($point);
 
+        if (empty($this->results[$point])) {
+            return $this->generateForce($point);
+        }
+
+        return $this->results[$point];
+    }
+
+    /**
+     * Method generates paths for all defined points.
+     *
+     * @return Path[][] Two-dimensional array of Path objects.
+     * @throws Exception Method throws exception when generate() method throws exception.
+     */
+    public function generateAll()
+    {
+        $generated = array();
+
+        foreach ($this->points as $index => $point) {
+            $generated[$index] = $this->generate($point);
+        }
+
+        return $generated;
+    }
+
+    /**
+     * Method generates path for given Point object or point id. It's not watching for existing cache.
+     *
+     * @param Point|integer $point Point object or point identification number.
+     * @return Path[] Array of Path objects.
+     * @throws Exception Throws exception when sent point not isset in object's $point array.
+     */
+    public function generateForce($point)
+    {
+        $point = $this->getPointID($point);
+
         $startPoint = $point;
 
         $visited = array();
@@ -161,17 +199,17 @@ class Dijkstra {
     }
 
     /**
-     * Method generates paths for all defined points.
+     * Method generates paths for all defined points. It's not watching for existing cache.
      *
      * @return Path[][] Two-dimensional array of Path objects.
      * @throws Exception Method throws exception when generate() method throws exception.
      */
-    public function generateAll()
+    public function generateForceAll()
     {
         $generated = array();
 
         foreach ($this->points as $index => $point) {
-            $generated[$index] = $this->generate($point);
+            $generated[$index] = $this->generateForce($point);
         }
 
         return $generated;
@@ -243,12 +281,18 @@ class Dijkstra {
         }
 
         $points = array();
+        $results = array();
         foreach ($reIndex as $oldIndex => $newIndex) {
             $points[$newIndex] = $this->points[$oldIndex];
             $points[$newIndex]->id = $newIndex;
+
+            if (isset($this->results[$oldIndex])) {
+                $results[$newIndex] = $this->results[$oldIndex];
+            }
         }
 
         $this->points = $points;
+        $this->results = $results;
 
         return $this;
     }
