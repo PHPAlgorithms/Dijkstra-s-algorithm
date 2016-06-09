@@ -124,7 +124,8 @@ class Dijkstra {
         $startPoint = $point;
 
         $visited = array();
-        $unvisited = array_keys($this->points);
+        $keys = array_keys($this->points);
+        $unvisited = array_combine($keys, $keys);
         $paths = array();
         $previous = null;
 
@@ -222,6 +223,34 @@ class Dijkstra {
         }
 
         return $point;
+    }
+
+    /**
+     * @param array $reIndex New points' indexes.
+     */
+    public function reIndex($reIndex)
+    {
+        if (array_keys($reIndex) != array_keys($this->points)) {
+            throw new Exception('You don\'t reindex all keys');
+        }
+
+        foreach ($reIndex as $oldIndex => $newIndex) {
+            foreach ($reIndex as $oldIndex_ => $newIndex_) {
+                if (($oldIndex != $oldIndex_) && ($newIndex == $newIndex_)) {
+                    throw new Exception('Array error: two different indexes show to one');
+                }
+            }
+        }
+
+        $points = array();
+        foreach ($reIndex as $oldIndex => $newIndex) {
+            $points[$newIndex] = $this->points[$oldIndex];
+            $points[$newIndex]->id = $newIndex;
+        }
+
+        $this->points = $points;
+
+        return $this;
     }
 
     /**

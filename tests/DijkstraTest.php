@@ -302,4 +302,30 @@ class DijkstraTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals(11, $dijkstra->generate(5)[4]->distance);
         $this->assertEquals(0, $dijkstra->generate(5)[5]->distance);
     }
+
+    public function testReIndex()
+    {
+        $dijkstra = new Dijkstra(function (Creator $creator) {
+            $creator->addPoint()
+                    ->addRelation($creator->addPoint(), 1)
+                    ->addRelation($creator->addPoint(), 2);
+
+            $creator->getPoint(2)
+                    ->addRelation($creator->addPoint(), 3);
+        });
+
+        $oldValues = $dijkstra->generateAll();
+
+        $reIndexArray = array(
+            0 => 1,
+            1 => 3,
+            2 => 5,
+            3 => 7,
+        );
+
+        $dijkstra->reIndex($reIndexArray)
+                 ->reIndex(array_flip($reIndexArray));
+
+        $this->assertEquals($oldValues, $dijkstra->generateAll());
+    }
 }
